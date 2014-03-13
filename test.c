@@ -8,10 +8,10 @@ int a(int a, int b)
 {
 	if(a)
 	{
-		return a;
+		return  a;
 	}
 	if(b)
-		return b;
+		return  b;
 }
 
 void main()

@@ -54,14 +54,17 @@ public class trace {
 			}
 			{
 				String regx;
-				regx = "return";
+				regx = "return(.*);";
 				Pattern p = Pattern.compile(regx);
 				Matcher m = p.matcher(data);	
-		        if (m.find()) {  
-		        	data = m.replaceAll("TRACE return");    
-		        }  
+			    StringBuffer sb1 = new StringBuffer();  
+			    while (m.find())  
+			    {  
+			      m.appendReplacement(sb1, "{TRACE return" + m.group(1) + ";}");       
+			    }  
+			    m.appendTail(sb1);  
+			    data = sb1.toString();
 			}
-			
 			data = "#define TRACE {buginf(\"\\n%s %s %d %d\",__FILE__,__FUNCTION__,__LINE__, clock_get_microsecs());}\n"
 			+ data;
 			System.out.println(data);
